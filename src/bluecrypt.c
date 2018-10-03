@@ -18,11 +18,11 @@ void keysetup(unsigned char *key, unsigned char *nonce) {
     for (c=0; c < keylen; c++) {
         k[c] = (k[c] + key[c]) & 0xff;
         j = (j + k[c]) & 0xff; }
-    for (c = 0; c < 256; c++) {
+    for (c = 0; c < 768; c++) {
         k[c % keylen] = (k[c % keylen] + j) & 0xff;
         j = (j + k[c % keylen] + c) & 0xff; }
-        temp = s[c];
-	s[c] = s[j];
+        temp = s[c & 0xff];
+	s[c & 0xff] = s[j];
 	s[j] = temp;
     for (c = 0; c < sizeof(nonce); c++) {
         k[c] = (k[c] + nonce[c]) & 0xff;
@@ -30,8 +30,8 @@ void keysetup(unsigned char *key, unsigned char *nonce) {
     for (c = 0; c < 768; c++) {
         k[c % keylen] = (k[c % keylen] + j) & 0xff;
         j = (j + k[c % keylen] + c) & 0xff; }
-        temp = s[c];
-	s[c] = s[j];
+        temp = s[c & 0xff];
+	s[c & 0xff] = s[j];
 	s[j] = temp;
 }
 
