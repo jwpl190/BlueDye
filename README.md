@@ -48,11 +48,17 @@ Encryption:
 To encrypt a single letter one uses the following algorithm.  First line, modifies the key, the second modifies j, and the third creates the output letter which is added to the input letter.  The counter i is mod keylength and counter c is mod 26.
 
 key[i] = (k[i] + k[(i + 1) % keylength] + j) % 26
+
 j = (j + k[i] + c) % 26
+
 output = (s[j] + k[i]) % 26
+
 swap(s[c] and s[j])
+
 result = (input +  output) % 26
+
 c = (c + 1) % 26
+
 i = (i + 1) % keylength
 
 First we convert our message to numbers
