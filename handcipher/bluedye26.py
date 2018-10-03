@@ -19,7 +19,6 @@ class BlueDye:
         k, j, s = self.keysetup(key)
         keylen = len(k)
         for char in chars:
-            print ord(char) - 65
             k[i] = (k[i] + k[(i + 1) % keylen] + j) % 26
             j = (j + k[i] + c) % 26
             output = (s[j] + k[i]) % 26
