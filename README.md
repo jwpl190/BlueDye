@@ -8,8 +8,11 @@ The keysetup starts by operating on each byte of the key, adding each byte to th
 Key generator operates using the following equation to encrypt and decrypt:
 
 k[i] = (k[i] + k[(i + 1) % keylen] + j) % 256
+
 j = (j + k[i] + c) % 256
+
 swap(s[c], s[j])
+
 output = s[j] ^ k[i]
 
 The output is XOR'd with the input byte.  i is a second counter that operates mod the key length.  In the case that the key is 2048 bits in length no second counter is necessary and performance is boosted.
