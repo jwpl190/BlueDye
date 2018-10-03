@@ -9,8 +9,8 @@ class BlueDye:
             j = (j + (ord(byte) - 65)) % 26
         for c in range(26):
             k[c % keylen] = (k[c % keylen] + j) % 26
-            j = (j + k[c % keylen]) % 26
-            s[c], s[j] = s[c], s[j]
+            j = (j + k[c % keylen] + c) % 26
+            s[c], s[j] = s[j], s[c]
         return k, j, s
 
     def encrypt(self, chars, key):
@@ -19,6 +19,7 @@ class BlueDye:
         k, j, s = self.keysetup(key)
         keylen = len(k)
         for char in chars:
+            print ord(char) - 65
             k[i] = (k[i] + k[(i + 1) % keylen] + j) % 26
             j = (j + k[i] + c) % 26
             output = (s[j] + k[i]) % 26

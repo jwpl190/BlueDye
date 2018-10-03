@@ -21,4 +21,53 @@ BlueDye's output cannot be distinguished from a truly random source.  There is n
 # BlueDye as a Hand Cipher
 (see also implementation in python)
 
+BlueDye run as a hand cipher is a little time consuming because one has to maintain the 26 character state at all times.  This can be represented by half a deck of cards or written on paper.  In this example we'll use half a deck of cards(26 cards).
+
+First one arranges the deck of cards in order from 0 to 25.  This will represent letters A to Z, respectively.  For this example, we'll use the word TESTING as the key and HELPMESOS as the message.  Convert TESTING to numbers.
+
+19, 4, 18, 19, 8, 13, 6
+
+Then you sum all the characters in the key to give you "j".
+
+19 + 4 + 18 + 19 + 8 + 13 + 6 mod 26 = 9
+
+Next, for 26 iterations you perform the following algorithm:
+
+key[c] = key[c] + j
+j = (j + key[c] + c)
+then you swap the counter (c) card with the j card.
+
+The resulting 26 letter state will be:
+
+[6, 5, 23, 10, 2, 18, 7, 12, 15, 11, 0, 14, 19, 25, 4, 8, 17, 22, 20, 9, 21, 24, 3, 16, 13, 1]
+
+and j will be 20
+
+Encryption:
+
+To encrypt a single letter one uses the following algorithm.  First line, modifies the key, the second modifies j, and the third creates the output letter which is added to the input letter.  The counter i is mod keylength and counter c is mod 26.
+
+key[i] = (k[i] + k[(i + 1) % keylength] + j) % 26
+j = (j + k[i] + c) % 26
+output = (s[j] + k[i]) % 26
+swap(s[c] and s[j])
+result = (input +  output) % 26
+c = (c + 1) % 26
+i = (i + 1) % keylength
+
+First we convert our message to numbers
+H E L P M E S O S
+7 4 11 15 12 4 18 14 18
+
+Then we run each letter through the encryption algorithm.
+
+RESULT
+
+TIDXHCLRHD
+
+Decryption:
+
+Decryption is performed exactly the same as encryption except this time output is subtracted from intput.
+
+result = (input - output) % 26
 
