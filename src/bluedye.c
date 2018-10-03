@@ -71,21 +71,21 @@ unsigned char * bluedye_kdf (unsigned char *password, unsigned char *key, unsign
     for (n=0; n < keylen; n++) {
         kdf_k[n % keylen] = (kdf_k[n % keylen] + key[n % keylen]) & 0xff;
         t = (t + kdf_k[n % keylen]) & 0xff; }
-    for (n = 0; n < 256; n++) {
+    for (n = 0; n < 768; n++) {
         kdf_k[n % keylen] = (kdf_k[n % keylen] + t) & 0xff;
         t = (t + kdf_k[n % keylen]) & 0xff; }
-        tmp = z[n];
-	z[n] = z[t];
+        tmp = z[n % 256];
+	z[n % 256] = z[t];
 	z[t] = tmp;
     int saltlen = sizeof(salt);
     for (n = 0; n < keylen; n++) {
         kdf_k[n] = (kdf_k[n] + salt[n % saltlen]) & 0xff;
         t = (t + kdf_k[n]) & 0xff; }
-    for (n = 0; n < 256; n++) {
+    for (n = 0; n < 768; n++) {
         kdf_k[n % keylen] = (kdf_k[n % keylen] + t) & 0xff;
         t = (t + kdf_k[n % keylen]) & 0xff; }
-        tmp = z[n];
-	z[n] = z[t];
+        tmp = z[n % 256];
+	z[n % 256] = z[t];
 	z[t] = tmp;
 
     n = 0;
@@ -100,7 +100,6 @@ unsigned char * bluedye_kdf (unsigned char *password, unsigned char *key, unsign
        z[n] = z[t];
        z[t] = tmp;
     }
-    printf("kdf\n");
 }
 
 unsigned char * bluedye_random (unsigned char *buf, int num_bytes) {
