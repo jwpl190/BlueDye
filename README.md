@@ -19,7 +19,7 @@ The output is XOR'd with the input byte.  i is a second counter that operates mo
 BlueDye's output cannot be distinguished from a truly random source.  There is no known attack vector against the cipher.  BlueDye holds its ground under known plaintext attack situations.
 
 # BlueDye as a Hand Cipher
-(see also implementation in python)
+(implemented in python as RedDye26)
 
 BlueDye run as a hand cipher is a little time consuming because one has to maintain the 26 character state at all times.  This can be represented by half a deck of cards or written on paper.  In this example we'll use half a deck of cards(26 cards).
 
