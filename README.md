@@ -19,7 +19,7 @@ The output is XOR'd with the input byte.  i is a second counter that operates mo
 
 # Cryptanalysis
 
-BlueDye's output cannot be distinguished from a truly random source.  There is no known attack vector against the cipher.  BlueDye holds its ground under known plaintext attack situations.
+There is no known attack vector against the cipher.  BlueDye holds its ground under known plaintext attack situations.
 
 # BlueDye as a Hand Cipher
 (implemented in python as RedDye26)
