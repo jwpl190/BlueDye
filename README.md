@@ -65,7 +65,9 @@ c = (c + 1) % 26
 i = (i + 1) % keylength
 
 First we convert our message to numbers
+
 H E L P M E S O S
+
 7 4 11 15 12 4 18 14 18
 
 Then we run each letter through the encryption algorithm.
