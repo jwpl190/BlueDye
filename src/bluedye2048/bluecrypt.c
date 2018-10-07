@@ -87,12 +87,12 @@ int main(int argc, char *argv[]) {
             for (int b = 0; b < bsize; b++) {
                 k[c] = (k[c] + k[(c + 1) % keylen] + j) & 0xff;
                 j = (j + k[c] + c) & 0xff;
-		output = s[j] ^ k[c];
-                block[b] = block[b] ^ output;
-                c = (c + 1) & 0xff;
 		temp = s[c];
 		s[c] = s[j];
 		s[j] = temp;
+		output = s[j] ^ k[c];
+                block[b] = block[b] ^ output;
+                c = (c + 1) & 0xff;
             }
             if (d == (blocks - 1) && extra != 0) {
                 bsize = extra;
@@ -115,12 +115,12 @@ int main(int argc, char *argv[]) {
             for (int b = 0; b < bsize; b++) {
                 k[c] = (k[c] + k[(c + 1) % keylen] + j) & 0xff;
                 j = (j + k[c] + c) & 0xff;
-		output = s[j] ^ k[c];
-                block[b] = block[b] ^ output;
-                c = (c + 1) & 0xff;
 		temp = s[c];
 		s[c] = s[j];
 		s[j] = temp;
+		output = s[j] ^ k[c];
+                block[b] = block[b] ^ output;
+                c = (c + 1) & 0xff;
             }
             if ((d == (blocks - 1)) && extra != 0) {
                 bsize = extra;

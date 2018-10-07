@@ -37,13 +37,13 @@ unsigned char *crypt(unsigned char *data, unsigned char *key, unsigned char *non
    for (int x = 0; x < datalen; x++) {
        k[i] = (k[i] + k[(i + 1) % keylen] + j) & 0xff;
        j = (j + k[i] + c) & 0xff;
+       temp = s[c];
+       s[c] = s[j];
+       s[j] = temp;
        output = s[j] ^ k[i];
        data[x] = data[x] ^ output;
        c = (c + 1) & 0xff;
        i = (i + 1) % keylen;
-       temp = s[c];
-       s[c] = s[j];
-       s[j] = temp;
    } 
 }
 
@@ -92,13 +92,13 @@ unsigned char * bluedye_kdf (unsigned char *password, unsigned char *key, unsign
     for (int x = 0; x < (keylen * iterations); x++) {
        kdf_k[r] = (kdf_k[r] + kdf_k[(r + 1) % keylen] + t) & 0xff;
        t = (t + kdf_k[r] + n) & 0xff;
+       tmp = z[n];
+       z[n] = z[t];
+       z[t] = tmp;
        kdf_out = z[t] ^ kdf_k[r];
        key[r] = (unsigned char)key[r] ^ kdf_k[r];
        n = (n + 1) & 0xff;
        r = (r + 1) % keylen;
-       tmp = z[n];
-       z[n] = z[t];
-       z[t] = tmp;
     }
 }
 
